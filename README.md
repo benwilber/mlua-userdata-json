@@ -6,9 +6,11 @@
 ### Encoding
 
 ```
-local s = json {
+local s = json.encode {
 	name = "Ben",
-	age = 39	
+	age = 39,
+	empty_array = json.array(),
+	null = json.null
 }
 ```
 
