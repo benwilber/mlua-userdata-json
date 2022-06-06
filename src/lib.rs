@@ -1,5 +1,5 @@
 use mlua::{
-    Error as LuaError, LuaSerdeExt, MetaMethod, UserData, UserDataFields, UserDataMethods,
+    Error as LuaError, LuaSerdeExt, MetaMethod, Table, UserData, UserDataFields, UserDataMethods,
     Value as LuaValue,
 };
 
@@ -24,8 +24,12 @@ impl UserData for Json {
     }
 
     fn add_methods<'lua, M: UserDataMethods<'lua, Self>>(methods: &mut M) {
-        methods.add_function("array", |lua, ()| {
-            let array = lua.create_table()?;
+        methods.add_function("array", |lua, table: Option<Table>| {
+            let array = match table {
+                Some(table) => table,
+                None => lua.create_table()?,
+            };
+
             array.set_metatable(Some(lua.array_metatable()));
             Ok(array)
         });
