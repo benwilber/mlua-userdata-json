@@ -1,19 +1,28 @@
-.PHONY: all build format lint doc ready
+.PHONY: all build release clean format lint doc test ready
 
 all: build
 
 build:
 	cargo build
 
+release:
+	cargo build --release
+
+clean:
+	cargo clean
+
 format:
 	cargo fmt
 
 lint:
-	cargo fmt -- --check
-	cargo clippy
+	cargo fmt --check
+	cargo check
 
 doc:
 	cargo doc
 
-ready: format lint
+test:
+	cargo test
+
+ready: format lint test doc
 	@echo "Ready!"

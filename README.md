@@ -23,6 +23,8 @@ local t = json.decode(s)
 
 This is a `userdata` a value that indicates to the JSON serializer that this field should be represented as a JSON `null` instead of absent.
 
+
+
 ```lua
 json.encode {
   null = nil
